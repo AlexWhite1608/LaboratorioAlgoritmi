@@ -1,14 +1,21 @@
 from BinarySearchTree import *
+import numpy as np
 
 
 def main():
     tree = BinarySearchTree()
 
-    tree.addNode(tree.root, 101)
-    for x in range(100):
-        tree.addNode(None, x)
+    numbers = np.random.randint(1, 101, 10)
+    for i in numbers:
+        tree.insert(i)
 
-    tree.printInorder(tree.root)
+    print("Preorder:")
+    print(tree.preorder([]))
+    print("--------")
+
+    print("Postorder:")
+    print(tree.postorder([]))
+    print("--------")
 
 
 if __name__ == "__main__":
