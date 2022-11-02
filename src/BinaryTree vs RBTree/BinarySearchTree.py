@@ -17,8 +17,9 @@ class BinaryTree:
                 else:
                     self.addNode(node.left, value)
 
+            # inserimento nel figlio destro
             else:
-                if (node.right is None):
+                if node.right is None:
                     node.right = Node(value)
                 else:
                     self.addNode(node.right, value)
