@@ -1,13 +1,14 @@
-from BinaryTree import *
+from BinarySearchTree import *
 
 
 def main():
-    tree = BinaryTree()
+    tree = BinarySearchTree()
 
-    for x in range(10):
-        tree.addNode(None,x)
-        tree.printInorder(tree.root)
+    tree.addNode(tree.root, 101)
+    for x in range(100):
+        tree.addNode(None, x)
 
+    tree.printInorder(tree.root)
 
 
 if __name__ == "__main__":
