@@ -32,3 +32,19 @@ class BinarySearchTree:
             self.print_inorder(node.left)
             print(node.data)
             self.print_inorder(node.right)
+
+    def search(self, node, value):
+        if node is None or value is None:
+            return False
+
+        elif node.data is value:
+            return True
+
+        elif node.data < value:
+            return self.search(node.right, value)
+
+        else:
+            return self.search(node.left, value)
+
+
+
