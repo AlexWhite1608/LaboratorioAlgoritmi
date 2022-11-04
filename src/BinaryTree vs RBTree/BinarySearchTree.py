@@ -12,6 +12,20 @@ class BinarySearchTree:
     def get_root(self):
         return self.root
 
+    def minimum(self, node):
+        x = None
+        while node.left is not None:
+            x = node.left
+            node = node.left
+        return x
+
+    def maximum(self, node):
+        x = None
+        while node.right is not None:
+            x = node.right
+            node = node.right
+        return x
+
     def add_node(self, node, value):
         if node is None:
             self.root = Node(value)
@@ -45,6 +59,5 @@ class BinarySearchTree:
 
         else:
             return self.search(node.left, value)
-
 
 
