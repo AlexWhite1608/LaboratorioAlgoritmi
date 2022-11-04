@@ -5,19 +5,19 @@ import numpy as np
 def main():
     tree = BinarySearchTree()
 
-    # values = np.random.randint(1, 101, 10)
+    values = np.random.randint(1, 10, 5)
 
-    for v in range(15):
+    for v in values:
         tree.add_node(tree.get_root(), v)
 
     tree.print_inorder(tree.get_root())
 
-    find_me = 12
+    find_me = np.random.randint(1, 10, 1)
 
-    if tree.search(tree.get_root(), find_me) is not False:
-        print("Valore " + str(find_me) + " trovato!")
+    if tree.search(tree.get_root(), find_me) is True:
+        print("Valore " + str(find_me[0].astype(int)) + " trovato!")
     else:
-        print("Valore " + str(find_me) + " non trovato!")
+        print("Valore " + str(find_me[0].astype(int)) + " non trovato!")
 
 
 if __name__ == "__main__":

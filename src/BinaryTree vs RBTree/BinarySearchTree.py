@@ -37,7 +37,7 @@ class BinarySearchTree:
         if node is None or value is None:
             return False
 
-        elif node.data is value:
+        elif node.data == value:
             return True
 
         elif node.data < value:
