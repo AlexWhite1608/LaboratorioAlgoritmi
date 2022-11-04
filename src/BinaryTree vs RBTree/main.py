@@ -5,17 +5,12 @@ import numpy as np
 def main():
     tree = BinarySearchTree()
 
-    numbers = np.random.randint(1, 101, 10)
-    for i in numbers:
-        tree.insert(i)
+    values = np.random.randint(1, 101, 10)
 
-    print("Preorder:")
-    print(tree.preorder([]))
-    print("--------")
+    for v in values:
+        tree.add_node(tree.get_root(), v)
 
-    print("Postorder:")
-    print(tree.postorder([]))
-    print("--------")
+    tree.print_inorder(tree.get_root())
 
 
 if __name__ == "__main__":
