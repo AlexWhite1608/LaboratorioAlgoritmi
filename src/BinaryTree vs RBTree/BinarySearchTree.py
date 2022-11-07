@@ -1,8 +1,13 @@
 class Node:
-    def __init__(self, value):
+    def __init__(self, value, parent=None):
         self.left = None
         self.right = None
         self.data = value
+
+        if parent is None:
+            self.p = self
+        else:
+            self.p = parent
 
 
 class BinarySearchTree:
@@ -47,7 +52,8 @@ class BinarySearchTree:
             print(node.data)
             self.print_inorder(node.right)
 
-    def search(self, node, value):
+    # Ricerca il valore inserito e restituisce True/False
+    def find(self, node, value):
         if node is None or value is None:
             return False
 
@@ -55,9 +61,64 @@ class BinarySearchTree:
             return True
 
         elif node.data < value:
-            return self.search(node.right, value)
+            return self.find(node.right, value)
 
         else:
-            return self.search(node.left, value)
+            return self.find(node.left, value)
 
+    # Ritorna direttamente il nodo corrispondente al valore scelto
+    def search(self, value):
+        node = self.root
+        while node is not None:
+            if node.data == value:
+                return node
+            if node.data > value:
+                node = node.left
+            else:
+                node = node.right
+        return None
 
+    def successor(self, node):
+        parent = None
+        if node.right is not None:
+            return self.minimum(node.right)
+        parent = node.p
+        while parent is not None and node == parent.right:
+            node = parent
+            parent = parent.p
+        return parent
+
+    def predecessor(self, node):
+        parent = None
+        if node.left is not None:
+            return self.maximum(node.left)
+        parent = node.p
+        while parent is not None and node == parent.left:
+            node = parent
+            parent = parent.p
+        return parent
+
+    def transplant(self, node, new_node):
+        if node.p is None:
+            self.root = new_node
+        elif node == node.p.left:
+            node.p.left = new_node
+        else:
+            node.p.right = new_node
+        if new_node is not None:
+            new_node.p = node.p
+
+    def delete(self, node):
+        if node.left is None:
+            self.transplant(node, node.right)
+        elif node.right is None:
+            self.transplant(node, node.left)
+        else:
+            succ = self.minimum(node.right)
+            if succ.p != node:
+                self.transplant(succ, succ.right)
+                succ.right = node.right
+                succ.right.p = succ
+            self.transplant(node, succ)
+            succ.left = node.left
+            succ.left.p = succ
