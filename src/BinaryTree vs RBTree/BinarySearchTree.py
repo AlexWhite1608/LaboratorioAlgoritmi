@@ -31,21 +31,6 @@ class BinarySearchTree:
             node = node.right
         return x
 
-    def add_node(self, node, value):
-        if node is None:
-            self.root = Node(value)
-        else:
-            if value < node.data:
-                if node.left is None:
-                    node.left = Node(value)
-                else:
-                    self.add_node(node.left, value)
-            else:
-                if node.right is None:
-                    node.right = Node(value)
-                else:
-                    self.add_node(node.right, value)
-
     def print_inorder(self, node):
         if node is not None:
             self.print_inorder(node.left)
@@ -65,6 +50,25 @@ class BinarySearchTree:
 
         else:
             return self.find(node.left, value)
+
+    def insert(self, value):
+        t = Node(value)
+        parent = None
+        node = self.root
+        while node is not None:
+            parent = node
+            if node.data > t.data:
+                node = node.left
+            else:
+                node = node.right
+        t.p = parent
+        if parent is None:
+            self.root = t
+        elif t.data < parent.data:
+            parent.left = t
+        else:
+            parent.right = t
+        return t
 
     # Ritorna direttamente il nodo corrispondente al valore scelto
     def search(self, value):

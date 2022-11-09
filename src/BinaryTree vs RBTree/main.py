@@ -13,7 +13,7 @@ def main():
     # values = np.random.randint(START_RANGE, END_RANGE, NUM_VALUES)
 
     for v in range(END_RANGE):
-        tree.add_node(tree.get_root(), v)
+        tree.insert(v)
 
     tree.print_inorder(tree.get_root())
 
