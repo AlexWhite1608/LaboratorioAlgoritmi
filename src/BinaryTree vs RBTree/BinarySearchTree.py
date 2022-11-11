@@ -1,13 +1,4 @@
-class Node:
-    def __init__(self, value, parent=None):
-        self.left = None
-        self.right = None
-        self.data = value
-
-        if parent is None:
-            self.p = self
-        else:
-            self.p = parent
+import TreeNode as tn
 
 
 class BinarySearchTree:
@@ -52,7 +43,7 @@ class BinarySearchTree:
             return self.find(node.left, value)
 
     def insert(self, value):
-        t = Node(value)
+        t = tn.Node(value)
         parent = None
         node = self.root
         while node is not None:
