@@ -52,7 +52,7 @@ class BinarySearchTree:
                 node = node.left
             else:
                 node = node.right
-        t.p = parent
+        t.parent = parent
         if parent is None:
             self.root = t
         elif t.data < parent.data:
@@ -77,31 +77,31 @@ class BinarySearchTree:
         parent = None
         if node.right is not None:
             return self.minimum(node.right)
-        parent = node.p
+        parent = node.parent
         while parent is not None and node == parent.right:
             node = parent
-            parent = parent.p
+            parent = parent.parent
         return parent
 
     def predecessor(self, node):
         parent = None
         if node.left is not None:
             return self.maximum(node.left)
-        parent = node.p
+        parent = node.parent
         while parent is not None and node == parent.left:
             node = parent
-            parent = parent.p
+            parent = parent.parent
         return parent
 
     def transplant(self, node, new_node):
-        if node.p is None:
+        if node.parent is None:
             self.root = new_node
-        elif node == node.p.left:
-            node.p.left = new_node
+        elif node == node.parent.left:
+            node.parent.left = new_node
         else:
-            node.p.right = new_node
+            node.parent.right = new_node
         if new_node is not None:
-            new_node.p = node.p
+            new_node.parent = node.parent
 
     def delete(self, node):
         if node.left is None:
@@ -113,7 +113,7 @@ class BinarySearchTree:
             if succ.p != node:
                 self.transplant(succ, succ.right)
                 succ.right = node.right
-                succ.right.p = succ
+                succ.right.parent = succ
             self.transplant(node, succ)
             succ.left = node.left
-            succ.left.p = succ
+            succ.left.parent = succ

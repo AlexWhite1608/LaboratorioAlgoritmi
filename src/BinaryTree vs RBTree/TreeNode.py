@@ -5,6 +5,12 @@ class Node:
         self.data = value
 
         if parent is None:
-            self.p = self
+            self.parent = self
         else:
-            self.p = parent
+            self.parent = parent
+
+
+class RBNode(Node):
+    def __init__(self, value):
+        super().__init__(value)
+        self.color = 1  # 1 --> Red
