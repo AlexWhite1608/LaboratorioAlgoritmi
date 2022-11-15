@@ -1,4 +1,5 @@
 import Graph as g
+import GraphVisual as gv
 
 
 def main():
@@ -7,6 +8,10 @@ def main():
     graph = g.Graph(adj_matrix)
 
     print(graph)
+
+    graph_visual = gv.GraphVisual(graph.get_graph_dict())
+
+    graph_visual.visualize()
 
 
 if __name__ == "__main__":

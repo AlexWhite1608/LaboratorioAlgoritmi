@@ -37,17 +37,20 @@ class Graph:
         self._matrix = adj_matrix
         self._graph = matrix_to_graph_dict(adj_matrix)
 
-    def add_node(self, node):
+    def add_node(self, node):  # TODO: si deve modificare anche la matrice!
         if node not in self._graph:
             self._graph[node] = []
 
-    def add_edge(self, edge):
+    def add_edge(self, edge):  # TODO: si deve modificare anche la matrice!
         edge = set(edge)
         (node1, node2) = tuple(edge)
         if node1 in self._graph:
             self._graph[node1].append(node2)
         else:
             self._graph[node1] = [node2]
+
+    def get_graph_dict(self):
+        return self._graph
 
     def nodes(self):
         return list(self._graph.keys())
@@ -61,7 +64,7 @@ class Graph:
         return edges
 
     def __str__(self):
-        res ="Matrice: " + str(self._matrix)
+        res = "Matrice: " + str(self._matrix)
         res += "\nGrafo: " + str(self._graph)
         res += "\nNodi: "
         for node in self.nodes():
