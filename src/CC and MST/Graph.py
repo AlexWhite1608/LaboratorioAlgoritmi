@@ -10,7 +10,7 @@ def random_adj_matrix(n_nodes):
     for j in range(n_nodes):
         for i in range(n_nodes):
             probability = [randint(0, 100) / 100,
-                           randint(0, 100) / 100]  # ad ogni iterazione ho una certa probabilità di avere 0 o 1
+                           randint(0, 100) / 100]  # ad ogni cella ho una certa probabilità di avere 0 o 1
             array[j][i] = choices(values, probability)[0]
     return array
 
@@ -23,8 +23,6 @@ def matrix_to_graph_dict(adj_matrix):
     for i in range(len(alphabet)):
         dictionary[i] = alphabet[i]
 
-    print(dictionary)
-
     for m in range(len(adj_matrix)):
         graph[dictionary[m]] = []
         for n in range(len(adj_matrix)):
@@ -35,10 +33,9 @@ def matrix_to_graph_dict(adj_matrix):
 
 
 class Graph:
-    def __init__(self, graph=None):
-        if graph is None:
-            graph = {}
-        self._graph = graph
+    def __init__(self, adj_matrix):
+        self._matrix = adj_matrix
+        self._graph = matrix_to_graph_dict(adj_matrix)
 
     def add_node(self, node):
         if node not in self._graph:
@@ -64,10 +61,12 @@ class Graph:
         return edges
 
     def __str__(self):
-        res = "Nodes: "
+        res ="Matrice: " + str(self._matrix)
+        res += "\nGrafo: " + str(self._graph)
+        res += "\nNodi: "
         for node in self.nodes():
             res += str(node) + " "
-        res += "\nEdges: "
+        res += "\nArchi: "
         for edge in self.edges():
             res += str(edge) + " "
         return res

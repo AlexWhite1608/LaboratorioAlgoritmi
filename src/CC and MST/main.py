@@ -2,12 +2,10 @@ import Graph as g
 
 
 def main():
-    adj_matrix = g.random_adj_matrix(3)
-    graph = g.matrix_to_graph_dict(adj_matrix)
 
-    print("Matrice")
-    print(adj_matrix)
-    print("\nGrafo")
+    adj_matrix = g.random_adj_matrix(4)
+    graph = g.Graph(adj_matrix)
+
     print(graph)
 
 
