@@ -11,7 +11,7 @@ def random_adj_matrix(n_nodes, p_edge=0.5):
     for j in range(n_nodes):
         for i in range(n_nodes):
             probability = [1-p_edge,
-                           p_edge]  # ad ogni cella ho una certa probabilità di avere 0 o 1
+                           p_edge]  # ad ogni cella ho p_edge probabilità di avere 0 o 1
             array[j][i] = choices(values, probability)[0]
     return array
 
