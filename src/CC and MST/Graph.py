@@ -1,17 +1,26 @@
+from collections import defaultdict
+
 import numpy as np
 from random import randint, choices
+
+RANGE_WEIGHT = 10
 
 
 # Genera una matrice di adiacenza random forniti il numero di nodi n_nodes
 # TODO: generare archi pesati (dizionario di dizionario)
 def random_adj_matrix(n_nodes, p_edge=0.5):
     array = [[0 for _ in range(n_nodes)] for _ in range(n_nodes)]
-    values = [0, 1]
+    values = [x for x in range(RANGE_WEIGHT)]
+    probability = []
+
+    for x in values:
+        if x > 0:
+            probability.append(p_edge)
+        else:
+            probability.append(1 - p_edge)
 
     for j in range(n_nodes):
         for i in range(n_nodes):
-            probability = [1-p_edge,
-                           p_edge]  # ad ogni cella ho p_edge probabilità di avere 0 o 1
             array[j][i] = choices(values, probability)[0]
     return array
 
@@ -21,14 +30,18 @@ def matrix_to_graph_dict(adj_matrix):
     dictionary = {}
     graph = {}
 
+    # inizializza il dizionario di supporto
     for i in range(len(alphabet)):
         dictionary[i] = alphabet[i]
 
     for m in range(len(adj_matrix)):
-        graph[dictionary[m]] = []
+        # graph[dictionary[m]] = []  # inizializza per ogni riga della matrice che corrisponde ad un diverso nodo
+        graph[dictionary[m]] = {}
         for n in range(len(adj_matrix)):
-            if adj_matrix[m][n] == 1:
-                graph[dictionary[m]].append(dictionary[n])
+            if adj_matrix[m][n] > 0:
+                # graph[dictionary[m]].append(dictionary[n])
+                graph[dictionary[m]][dictionary[n]] = dictionary[n]
+                graph[dictionary[m]][dictionary[n]] = adj_matrix[m][n]
 
     return graph
 
