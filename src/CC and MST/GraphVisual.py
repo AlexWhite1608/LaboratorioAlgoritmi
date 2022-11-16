@@ -10,6 +10,10 @@ class GraphVisual:
     def get_nodes(self):
         return self.graph.nodes
 
-    def visualize(self):
+    def visualize(self, save=False):
         nx.draw_networkx(self.graph)
+
+        if save:
+            plt.savefig("graph.png")
+
         plt.show()

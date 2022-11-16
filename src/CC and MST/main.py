@@ -4,12 +4,12 @@ import GraphVisual as gv
 
 def main():
 
-    adj_matrix = g.random_adj_matrix(4)
+    adj_matrix = g.random_adj_matrix(6)
     graph = g.Graph(adj_matrix)
 
     # Aggiungo un nodo ed un arco random
-    graph.add_node("X")
-    graph.add_edge(("X", "A"))
+    # graph.add_node("X")
+    # graph.add_edge(("X", "A"))
 
     print(graph)
 
