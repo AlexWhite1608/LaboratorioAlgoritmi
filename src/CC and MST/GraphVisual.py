@@ -15,8 +15,7 @@ class GraphVisual:
         pos = nx.spring_layout(self.graph)
 
         nx.draw(self.graph, pos, with_labels=True)
-        nx.draw_networkx_edge_labels(self.graph, pos, edge_labels=weights, font_size=10)
-        #nx.draw_networkx(self.graph, with_labels=True)
+        nx.draw_networkx_edge_labels(self.graph, pos, edge_labels=weights, font_size=20)
 
         if save:
             plt.savefig("graph.png")
