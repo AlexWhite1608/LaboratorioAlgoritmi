@@ -3,14 +3,15 @@ from random import randint, choices
 
 
 # Genera una matrice di adiacenza random forniti il numero di nodi n_nodes
-def random_adj_matrix(n_nodes):
+# TODO: generare archi pesati (dizionario di dizionario)
+def random_adj_matrix(n_nodes, p_edge=0.5):
     array = [[0 for _ in range(n_nodes)] for _ in range(n_nodes)]
     values = [0, 1]
 
     for j in range(n_nodes):
         for i in range(n_nodes):
-            probability = [randint(0, 100) / 100,
-                           randint(0, 100) / 100]  # ad ogni cella ho una certa probabilità di avere 0 o 1
+            probability = [1-p_edge,
+                           p_edge]  # ad ogni cella ho una certa probabilità di avere 0 o 1
             array[j][i] = choices(values, probability)[0]
     return array
 

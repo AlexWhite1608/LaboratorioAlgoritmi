@@ -3,8 +3,7 @@ import GraphVisual as gv
 
 
 def main():
-
-    adj_matrix = g.random_adj_matrix(6)
+    adj_matrix = g.random_adj_matrix(5)  # di default la probabilità di avere un arco è del 50%
     graph = g.Graph(adj_matrix)
 
     # Aggiungo un nodo ed un arco random
