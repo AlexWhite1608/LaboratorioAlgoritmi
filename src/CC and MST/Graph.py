@@ -21,8 +21,9 @@ def random_adj_matrix(n_nodes, p_edge=0.5):
 
     for j in range(n_nodes):
         for i in range(n_nodes):
-            array[j][i] = choices(values, probability)[0]
-            array[i][j] = array[j][i]
+            if i != j:    # PER TOGLIERE I SELF LOOP!
+                array[j][i] = choices(values, probability)[0]
+                array[i][j] = array[j][i]
     return array
 
 
@@ -35,7 +36,6 @@ def matrix_to_graph_dict(adj_matrix):
     for i in range(len(alphabet)):
         dictionary[i] = alphabet[i]
 
-    # FIXME: valori doppi nel caso di inversione dei nodi!
     for m in range(len(adj_matrix)):
         # graph[dictionary[m]] = []  # inizializza per ogni riga della matrice che corrisponde ad un diverso nodo
         graph[dictionary[m]] = {}
@@ -80,12 +80,16 @@ class Graph:
                     edges.append((node, neighbour))
         return edges
 
-    # def weights(self):
-    #     weights = {}
-    #     for edge in self.edges():
-    #         for i in self._graph.keys():
-    #             # weights[edge] = self._graph[i][i]
+    def weights(self):
+        weights = {}
 
+        for k, v in self._graph.items():
+            for x, y in v.items():
+                (k, x) = tuple([k, x])
+                if (x, k) not in weights:   # rimuove archi duplicati del tipo (A, B) = (B, A)
+                    weights[(k, x)] = y
+
+        return weights
 
     def __str__(self):
         res = "Matrice: " + str(self._matrix)
@@ -96,4 +100,5 @@ class Graph:
         res += "\nArchi: "
         for edge in self.edges():
             res += str(edge) + " "
+        res += "\nPesi: " + str(self.weights())
         return res

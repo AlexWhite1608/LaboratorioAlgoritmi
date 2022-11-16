@@ -11,10 +11,12 @@ class GraphVisual:
     def get_nodes(self):
         return self.graph.nodes
 
-    def visualize(self, save=False):
+    def visualize(self, weights, save=False):
+        pos = nx.spring_layout(self.graph)
 
-
-        nx.draw_networkx(self.graph)
+        nx.draw(self.graph, pos, with_labels=True)
+        nx.draw_networkx_edge_labels(self.graph, pos, edge_labels=weights, font_size=10)
+        #nx.draw_networkx(self.graph, with_labels=True)
 
         if save:
             plt.savefig("graph.png")
