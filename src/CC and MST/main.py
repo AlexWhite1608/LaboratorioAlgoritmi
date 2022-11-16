@@ -2,7 +2,7 @@ import Graph as g
 import GraphVisual as gv
 
 # --- Costanti per testing --- #
-NUM_NODES = 4
+NUM_NODES = 3
 EDGE_PROBABILITY = 0.50
 
 
@@ -17,8 +17,10 @@ def main():
 
     print(graph)
 
-    graph_visual = gv.GraphVisual(graph.get_graph_dict())
+    graph_visual = gv.GraphVisual(graph.get_graph_dict(), adj_matrix)
     graph_visual.visualize()
+
+
 
 
 if __name__ == "__main__":

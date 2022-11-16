@@ -22,6 +22,7 @@ def random_adj_matrix(n_nodes, p_edge=0.5):
     for j in range(n_nodes):
         for i in range(n_nodes):
             array[j][i] = choices(values, probability)[0]
+            array[i][j] = array[j][i]
     return array
 
 
@@ -34,6 +35,7 @@ def matrix_to_graph_dict(adj_matrix):
     for i in range(len(alphabet)):
         dictionary[i] = alphabet[i]
 
+    # FIXME: valori doppi nel caso di inversione dei nodi!
     for m in range(len(adj_matrix)):
         # graph[dictionary[m]] = []  # inizializza per ogni riga della matrice che corrisponde ad un diverso nodo
         graph[dictionary[m]] = {}
@@ -51,6 +53,7 @@ class Graph:
         self._matrix = adj_matrix
         self._graph = matrix_to_graph_dict(adj_matrix)
 
+    # FIXME: fix alle strutture dati (da lista a dict)
     def add_node(self, node):  # TODO: si deve modificare anche la matrice!
         if node not in self._graph:
             self._graph[node] = []
@@ -76,6 +79,13 @@ class Graph:
                 if (neighbour, node) not in edges:
                     edges.append((node, neighbour))
         return edges
+
+    # def weights(self):
+    #     weights = {}
+    #     for edge in self.edges():
+    #         for i in self._graph.keys():
+    #             # weights[edge] = self._graph[i][i]
+
 
     def __str__(self):
         res = "Matrice: " + str(self._matrix)
