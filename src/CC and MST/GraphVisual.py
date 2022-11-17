@@ -14,7 +14,7 @@ class GraphVisual:
     def visualize(self, weights, save=False):
         pos = nx.spring_layout(self.graph)
 
-        nx.draw(self.graph, pos, with_labels=True)
+        nx.draw(self.graph, pos, with_labels=True, node_size=900, node_color="tab:green")
         nx.draw_networkx_edge_labels(self.graph, pos, edge_labels=weights, font_size=20)
 
         if save:
