@@ -23,11 +23,12 @@ def random_adj_matrix(n_nodes, p_edge=0.5):
         for i in range(n_nodes):
             if i != j:    # PER TOGLIERE I SELF LOOP!
                 array[j][i] = choices(values, probability)[0]
-                array[i][j] = (choices([array[j][i], 0], [p_edge, 1-p_edge])[0])  # Gestione frecce per avere grafo orientato con direzione random
+                array[i][j] = (choices([array[j][i], 0], [p_edge, 1-p_edge])[0])  # Gestione frecce per avere freccia doppia per lo stesso arco
     return array
 
 
 def matrix_to_graph_dict(adj_matrix):
+    # TODO: aumentare i nodi disponibili facendo ad esempio AA...A
     alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "Z"]
     dictionary = {}
     graph = {}
@@ -51,18 +52,17 @@ class Graph:
         self._matrix = adj_matrix
         self._graph = matrix_to_graph_dict(adj_matrix)
 
-    # FIXME: fix alle strutture dati (da lista a dict)
     def add_node(self, node):  # TODO: si deve modificare anche la matrice!
         if node not in self._graph:
-            self._graph[node] = []
+            self._graph[node] = {}
 
     def add_edge(self, edge):  # TODO: si deve modificare anche la matrice!
         edge = set(edge)
         (node1, node2) = tuple(edge)
         if node1 in self._graph:
-            self._graph[node1].append(node2)
+            self._graph[node1] = node2
         else:
-            self._graph[node1] = [node2]
+            self._graph[node1] = node2
 
     def get_graph_dict(self):
         return self._graph
@@ -88,9 +88,22 @@ class Graph:
 
         return weights
 
+    def transpose(self):
+        transpose = [[0 for _ in range(len(self._matrix))] for _ in range(len(self._matrix[0]))]
+        for i in range(len(self._matrix)):
+            for j in range(len(self._matrix[0])):
+                transpose[j][i] = self._matrix[i][j]
+        return transpose
+
     def __str__(self):
         res = "Matrice: " + str(self._matrix)
+
+        res += "\nTrasposta: " + str(self.transpose())
+
         res += "\nGrafo: " + str(self._graph)
+
+        res += "\nGrafo trasposto: " + str(matrix_to_graph_dict(self.transpose()))
+
         res += "\nNodi: "
         for node in self.nodes():
             res += str(node) + " "

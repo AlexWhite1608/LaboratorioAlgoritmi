@@ -24,7 +24,6 @@ class GraphVisual:
         nx.draw_networkx_edge_labels(self.graph, pos, edge_labels=weights, font_size=20)
 
         if save:
-
             plt.savefig("graph.png")
 
         plt.show()
