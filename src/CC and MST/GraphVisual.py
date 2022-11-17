@@ -11,7 +11,7 @@ def save_to_file(graph):
 class GraphVisual:
 
     def __init__(self, graph, adj_matrix):
-        self.graph = nx.Graph(graph)
+        self.graph = nx.DiGraph(graph)
         self.matrix = adj_matrix
 
     def get_nodes(self):

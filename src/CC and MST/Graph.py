@@ -22,7 +22,7 @@ def random_adj_matrix(n_nodes, p_edge=0.5):
         for i in range(n_nodes):
             if i != j:    # PER TOGLIERE I SELF LOOP!
                 array[j][i] = choices(values, probability)[0]
-                array[i][j] = array[j][i]
+                array[i][j] = choices([array[j][i], 0], [p_edge, 1-p_edge])[0]  # Gestione frecce per avere grafo orientato con direzione random
     return array
 
 
