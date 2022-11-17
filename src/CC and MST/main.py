@@ -20,6 +20,7 @@ def main():
 
     graph_visual = gv.GraphVisual(graph.get_graph_dict(), adj_matrix)
     graph_visual.visualize(graph.weights())
+    # gv.save_to_file(graph.__str__())
 
 
 if __name__ == "__main__":

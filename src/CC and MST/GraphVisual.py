@@ -1,5 +1,11 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+import json
+
+
+def save_to_file(graph):
+    with open('graph.txt', 'w') as convert_file:
+        convert_file.write(json.dumps(graph))
 
 
 class GraphVisual:
@@ -18,6 +24,7 @@ class GraphVisual:
         nx.draw_networkx_edge_labels(self.graph, pos, edge_labels=weights, font_size=20)
 
         if save:
+
             plt.savefig("graph.png")
 
         plt.show()
