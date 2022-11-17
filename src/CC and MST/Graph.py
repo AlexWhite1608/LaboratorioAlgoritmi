@@ -88,21 +88,24 @@ class Graph:
 
         return weights
 
-    def transpose(self):
+    def transpose_adj_matrix(self):
         transpose = [[0 for _ in range(len(self._matrix))] for _ in range(len(self._matrix[0]))]
         for i in range(len(self._matrix)):
             for j in range(len(self._matrix[0])):
                 transpose[j][i] = self._matrix[i][j]
         return transpose
 
+    def transpose_graph(self):
+        return matrix_to_graph_dict(self.transpose_adj_matrix())
+
     def __str__(self):
         res = "Matrice: " + str(self._matrix)
 
-        res += "\nTrasposta: " + str(self.transpose())
+        res += "\nTrasposta: " + str(self.transpose_adj_matrix())
 
         res += "\nGrafo: " + str(self._graph)
 
-        res += "\nGrafo trasposto: " + str(matrix_to_graph_dict(self.transpose()))
+        res += "\nGrafo trasposto: " + str(self.transpose_graph())
 
         res += "\nNodi: "
         for node in self.nodes():
