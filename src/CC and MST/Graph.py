@@ -18,11 +18,12 @@ def random_adj_matrix(n_nodes, p_edge=0.5):
         else:
             probability.append(1 - p_edge)
 
+    # FIXME: choiches non è troppo corretto per la randomness
     for j in range(n_nodes):
         for i in range(n_nodes):
             if i != j:    # PER TOGLIERE I SELF LOOP!
                 array[j][i] = choices(values, probability)[0]
-                array[i][j] = choices([array[j][i], 0], [p_edge, 1-p_edge])[0]  # Gestione frecce per avere grafo orientato con direzione random
+                array[i][j] = (choices([array[j][i], 0], [p_edge, 1-p_edge])[0])  # Gestione frecce per avere grafo orientato con direzione random
     return array
 
 
@@ -73,8 +74,7 @@ class Graph:
         edges = []
         for node in self._graph:
             for neighbour in self._graph[node]:
-                if (neighbour, node) not in edges:
-                    edges.append((node, neighbour))
+                edges.append((node, neighbour))
         return edges
 
     def weights(self):
