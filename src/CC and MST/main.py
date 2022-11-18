@@ -3,7 +3,7 @@ import GraphVisual as gv
 
 # --- Costanti per testing --- #
 NUM_NODES = 4
-EDGE_PROBABILITY = 0.50
+EDGE_PROBABILITY = 0.10
 
 # FIXME: quando si sovrappongono due archi non mostra i due pesi diversi!
 

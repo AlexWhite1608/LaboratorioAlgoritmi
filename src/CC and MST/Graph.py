@@ -103,16 +103,18 @@ class Graph:
         visited[node] = True
         print(node)
 
-        for k in self._graph.keys():
-            if visited[k] is False:
-                self.DFS(k, visited)
+        for k, v in self._graph.items():
+            for x in v.keys():
+                if visited[x] is False:
+                    self.DFS(x, visited)
 
     def visited_order(self, node, visited, stack):
         visited[node] = True
 
-        for k in self._graph.keys():
-            if visited[k] is False:
-                self.visited_order(k, visited, stack)
+        for k, v in self._graph.items():
+            for x in v.keys():
+                if visited[x] is False:
+                    self.visited_order(x, visited, stack)
         stack = stack.append(node)
 
     def SCC(self):
