@@ -21,9 +21,10 @@ def random_adj_matrix(n_nodes, p_edge=0.5):
     # FIXME: choiches non è troppo corretto per la randomness
     for j in range(n_nodes):
         for i in range(n_nodes):
-            if i != j:    # PER TOGLIERE I SELF LOOP!
+            if i != j:  # PER TOGLIERE I SELF LOOP!
                 array[j][i] = choices(values, probability)[0]
-                array[i][j] = (choices([array[j][i], 0], [p_edge, 1-p_edge])[0])  # Gestione frecce per avere freccia doppia per lo stesso arco
+                array[i][j] = (choices([array[j][i], 0], [p_edge, 1 - p_edge])[
+                    0])  # Gestione frecce per avere freccia doppia per lo stesso arco
     return array
 
 
@@ -83,7 +84,7 @@ class Graph:
         for k, v in self._graph.items():
             for x, y in v.items():
                 (k, x) = tuple([k, x])
-                if (x, k) not in weights:   # rimuove archi duplicati del tipo (A, B) = (B, A)
+                if (x, k) not in weights:  # rimuove archi duplicati del tipo (A, B) = (B, A)
                     weights[(k, x)] = y
 
         return weights
@@ -98,20 +99,61 @@ class Graph:
     def transpose_graph(self):
         return matrix_to_graph_dict(self.transpose_adj_matrix())
 
+    def DFS(self, node, visited):
+        visited[node] = True
+        print(node)
+
+        for k in self._graph.keys():
+            if visited[k] is False:
+                self.DFS(k, visited)
+
+    def visited_order(self, node, visited, stack):
+        visited[node] = True
+
+        for k in self._graph.keys():
+            if visited[k] is False:
+                self.visited_order(k, visited, stack)
+        stack = stack.append(node)
+
+    def SCC(self):
+        stack = []
+        visited = {}
+
+        for node in self._graph.keys():
+            visited[node] = False
+
+        for i in self._graph.keys():
+            if visited[i] is False:
+                self.visited_order(i, visited, stack)
+
+        transpose_graph = Graph(self.transpose_adj_matrix())
+
+        for node in self._graph.keys():
+            visited[node] = False
+
+        while stack:
+            i = stack.pop()
+            if visited[i] is False:
+                transpose_graph.DFS(i, visited)
+                print("")
+
     def __str__(self):
         res = "Matrice: " + str(self._matrix)
 
         res += "\nTrasposta: " + str(self.transpose_adj_matrix())
 
+        res += "\nNodi: "
+        for node in self.nodes():
+            res += str(node) + " "
+
+        res += "\nArchi: "
+        for edge in self.edges():
+            res += str(edge) + " "
+
+        res += "\nPesi: " + str(self.weights())
+
         res += "\nGrafo: " + str(self._graph)
 
         res += "\nGrafo trasposto: " + str(self.transpose_graph())
 
-        res += "\nNodi: "
-        for node in self.nodes():
-            res += str(node) + " "
-        res += "\nArchi: "
-        for edge in self.edges():
-            res += str(edge) + " "
-        res += "\nPesi: " + str(self.weights())
         return res
