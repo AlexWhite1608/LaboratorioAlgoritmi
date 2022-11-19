@@ -10,8 +10,12 @@ def save_to_file(graph):
 
 class GraphVisual:
 
-    def __init__(self, graph, adj_matrix):
-        self.graph = nx.DiGraph(graph)
+    def __init__(self, graph, adj_matrix, directed=False):
+        if directed:
+            self.graph = nx.DiGraph(graph)
+        else:
+            self.graph = nx.Graph(graph)
+
         self.matrix = adj_matrix
 
     def get_nodes(self):

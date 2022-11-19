@@ -7,7 +7,7 @@ RANGE_WEIGHT = 10
 
 
 # Genera una matrice di adiacenza random forniti il numero di nodi n_nodes
-def random_adj_matrix(n_nodes, p_edge=0.5):
+def random_adj_matrix(n_nodes, p_edge=0.5, directed=False):
     array = [[0 for _ in range(n_nodes)] for _ in range(n_nodes)]
     values = [x for x in range(RANGE_WEIGHT)]
     probability = []
@@ -23,8 +23,10 @@ def random_adj_matrix(n_nodes, p_edge=0.5):
         for i in range(n_nodes):
             if i != j:  # PER TOGLIERE I SELF LOOP!
                 array[j][i] = choices(values, probability)[0]
-                array[i][j] = (choices([array[j][i], 0], [p_edge, 1 - p_edge])[
-                    0])  # Gestione frecce per avere freccia doppia per lo stesso arco
+                if directed:
+                    array[i][j] = (choices([array[j][i], 0], [p_edge, 1 - p_edge])[0])    # Gestione frecce per avere freccia doppia per lo stesso arco
+                else:
+                    array[i][j] = array[j][i]       # per grafi non orientati!
     return array
 
 
@@ -101,7 +103,7 @@ class Graph:
 
     def DFS(self, node, visited):
         visited[node] = True
-        print(node)
+        print(node)     # TODO: printare sulla stessa riga
 
         for k, v in self._graph.items():
             for x in v.keys():
@@ -137,7 +139,7 @@ class Graph:
             i = stack.pop()
             if visited[i] is False:
                 transpose_graph.DFS(i, visited)
-                print("")
+                print("-")
 
     def __str__(self):
         res = "Matrice: " + str(self._matrix)
