@@ -5,13 +5,15 @@ import GraphVisual as gv
 NUM_NODES = 4
 EDGE_PROBABILITY = 0.50
 DIRECTED = False    # per avere o meno le frecce
+SAVE_TO_FILE = True    # salva png grafo e info su .txt
+
 
 # FIXME: quando si sovrappongono due archi non mostra i due pesi diversi!
 
 def main():
     adj_matrix = g.random_adj_matrix(NUM_NODES,
-                                     EDGE_PROBABILITY,
-                                     DIRECTED)  # di default la probabilità di avere un arco è del 50%
+                                     EDGE_PROBABILITY,  # di default la probabilità di avere un arco è del 50%
+                                     DIRECTED)
     graph = g.Graph(adj_matrix)
 
     # Aggiungo un nodo ed un arco random
@@ -21,8 +23,10 @@ def main():
     print(graph)
 
     graph_visual = gv.GraphVisual(graph.get_graph_dict(), adj_matrix, DIRECTED)
-    graph_visual.visualize(graph.weights())
-    # gv.save_to_file(graph.__str__())
+    graph_visual.visualize(graph.weights(), SAVE_TO_FILE)
+
+    if SAVE_TO_FILE:
+        gv.save_to_file(graph.__str__())
 
     graph.SCC()     # FIXME: un po' buggato
 
