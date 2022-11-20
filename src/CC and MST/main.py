@@ -30,6 +30,5 @@ def main():
 
     graph.SCC()     # FIXME: un po' buggato
 
-
 if __name__ == "__main__":
     main()

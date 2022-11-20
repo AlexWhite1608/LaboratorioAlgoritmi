@@ -1,6 +1,4 @@
-from collections import defaultdict
-
-import numpy as np
+import UnionFind as uf
 from random import randint, choices
 
 RANGE_WEIGHT = 10
@@ -140,6 +138,7 @@ class Graph:
             if visited[i] is False:
                 transpose_graph.DFS(i, visited)
                 print("-")
+    # def sort_edges(self):
 
     def __str__(self):
         res = "Matrice: " + str(self._matrix)
